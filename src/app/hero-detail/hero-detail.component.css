@@ -1,24 +1,2 @@
 @import '../../styles.css';
 @import '../app.component.css';
-
-button.save {
-  font-family: Arial;
-  background-color: #eee;
-  border: none;
-  padding: 5px 10px;
-  border-radius: 4px;
-  cursor: pointer;
-  cursor: hand;
-}
-button:hover {
-  background-color: #cfd8dc;
-}
-button:disabled {
-  background-color: #eee;
-  color: #aaa;
-  cursor: auto;
-}
-button.save {
-  color: #333;
-  margin-bottom: 12px;
-}
