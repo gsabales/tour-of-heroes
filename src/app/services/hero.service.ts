@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import {Hero} from "./hero";
-import {HEROES} from "./mock-heroes";
-import {Observable, of} from "rxjs";
-import {MessageService} from "./message.service";
-import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {catchError, map, tap} from "rxjs/operators";
+import {Hero} from '../hero';
+import {HEROES} from '../mock-heroes';
+import {Observable, of} from 'rxjs';
+import {MessageService} from './message.service';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {catchError, map, tap} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -90,5 +90,21 @@ export class HeroService {
       // Let the app keep running by returning an empty result.
       return of(result as T);
     };
+  }
+
+  /**
+   * GET heroes whose name contains search term
+   * @param term - string to be searched.
+   */
+  searchHeroes(term: string): Observable<Hero[]> {
+    if (!term.trim()) {
+      // if not search term, return empty hero array.
+      return of([]);
+    }
+
+    return this.http.get<Hero[]>(`${this.heroesUrl}/?bame=${term}`).pipe(
+      tap(_ => this.log(`found heroes matching "${term}"`)),
+      catchError(this.handleError<Hero[]>('searchHeroes', []))
+    );
   }
 }
